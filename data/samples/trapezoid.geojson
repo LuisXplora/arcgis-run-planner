@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "name": "trapezoid_test_case",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:EPSG::7856" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "work_area",
+        "case": "trapezoid",
+        "description": "100 m long. Width tapers linearly from 14 m at x=0 to 18 m at x=100. Centreline runs along x-axis at y = (8 + 0.04 * x) (midline of trapezoid).",
+        "expected_start_total_width_m": 14.0,
+        "expected_end_total_width_m": 18.0,
+        "expected_length_m": 100.0
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [0.0,    1.0],
+          [100.0, -1.0],
+          [100.0, 17.0],
+          [0.0,   15.0],
+          [0.0,    1.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "control_string",
+        "case": "trapezoid",
+        "description": "Centreline interpolated between midpoints of start and end edges: from (0, 8) to (100, 8). Note: this is a straight centreline — the polygon is asymmetric about it for taper testing."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [0.0,   8.0],
+          [100.0, 8.0]
+        ]
+      }
+    }
+  ]
+}

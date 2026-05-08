@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "name": "rectangle_test_case",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:EPSG::7856" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "work_area",
+        "case": "rectangle",
+        "description": "100 m long, 14 m wide rectangle. Easy hand-check: with w_pref=3.5 m and N=2 per side, runs are 3.5 m wide.",
+        "expected_total_width_m": 14.0,
+        "expected_length_m": 100.0
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [0.0,    0.0],
+          [100.0,  0.0],
+          [100.0, 14.0],
+          [0.0,   14.0],
+          [0.0,    0.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "control_string",
+        "case": "rectangle",
+        "description": "Centreline along the long axis of the rectangle, y = 7.0 m."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [0.0,   7.0],
+          [100.0, 7.0]
+        ]
+      }
+    }
+  ]
+}

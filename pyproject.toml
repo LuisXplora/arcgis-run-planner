@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arcgis-run-planner"
+version = "0.1.0"
+description = "Constraint-driven run-layout engine for milling and paving shift plans on irregular polygon work areas."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Luigi" }]
+license = { text = "MIT" }
+keywords = ["gis", "arcgis", "paving", "milling", "shift-planning", "geometry"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Development Status :: 2 - Pre-Alpha",
+]
+dependencies = [
+    "shapely>=2.0",
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "pytest-cov>=4",
+    "ruff>=0.4",
+    "ipykernel>=6",
+]
+agent = [
+    "anthropic>=0.30",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+[tool.setuptools.packages.find]
+include = ["engine*", "agent*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
