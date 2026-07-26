@@ -26,6 +26,7 @@ def main() -> int:
         ("rectangle.geojson", Mode.SYMMETRIC),
         ("trapezoid.geojson", Mode.SYMMETRIC),
         ("taxiway_tiein.geojson", Mode.ASYMMETRIC),
+        ("runway_shoulder.geojson", Mode.EDGE_REFERENCED),
     ]
 
     for case_name, mode in cases:

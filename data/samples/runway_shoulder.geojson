@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "name": "runway_shoulder_test_case",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:EPSG::7856" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "work_area",
+        "case": "runway_shoulder",
+        "description": "150 m long x 10.5 m wide shoulder strip. Control string lies on the bottom edge (y=0), work area extends upward (left side). With default constraints, N=3 runs each 3.5 m wide.",
+        "expected_width_m": 10.5,
+        "expected_length_m": 150.0,
+        "expected_runs": 3
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [0.0,   0.0],
+          [150.0, 0.0],
+          [150.0, 10.5],
+          [0.0,   10.5],
+          [0.0,   0.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "control_string",
+        "case": "runway_shoulder",
+        "description": "Control string along the bottom edge of the strip (y=0), representing the runway pavement edge."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [0.0,   0.0],
+          [150.0, 0.0]
+        ]
+      }
+    }
+  ]
+}

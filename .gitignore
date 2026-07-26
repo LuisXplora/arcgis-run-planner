@@ -42,3 +42,7 @@ Thumbs.db
 .env
 .env.local
 agent_keys.json
+
+# Generated outputs (renders + plan exports)
+data/*.png
+data/*_plan.geojson
