@@ -32,6 +32,11 @@ def trapezoid_case() -> tuple[WorkArea, ControlString]:
 
 
 @pytest.fixture
+def taxiway_tiein_case() -> tuple[WorkArea, ControlString]:
+    return load_geojson_case(SAMPLES_DIR / "taxiway_tiein.geojson", mode=Mode.ASYMMETRIC)
+
+
+@pytest.fixture
 def default_constraints() -> Constraints:
     return Constraints(
         w_min=2.7,

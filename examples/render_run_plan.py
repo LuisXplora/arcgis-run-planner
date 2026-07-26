@@ -22,11 +22,17 @@ def main() -> int:
     samples = ROOT / "data" / "samples"
     out_dir = ROOT / "data"
 
-    for case_name in ("rectangle.geojson", "trapezoid.geojson"):
-        stem = Path(case_name).stem
-        print(f"\n=== {case_name} ===")
+    cases = [
+        ("rectangle.geojson", Mode.SYMMETRIC),
+        ("trapezoid.geojson", Mode.SYMMETRIC),
+        ("taxiway_tiein.geojson", Mode.ASYMMETRIC),
+    ]
 
-        work_area, control = load_geojson_case(samples / case_name, mode=Mode.SYMMETRIC)
+    for case_name, mode in cases:
+        stem = Path(case_name).stem
+        print(f"\n=== {case_name} ({mode.value}) ===")
+
+        work_area, control = load_geojson_case(samples / case_name, mode=mode)
         constraints = Constraints(w_min=2.7, w_max=4.5, w_pref=3.5)
         plan = compute_runs(work_area, control, constraints)
         print(plan.summary())

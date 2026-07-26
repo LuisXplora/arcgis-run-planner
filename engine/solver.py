@@ -92,3 +92,69 @@ def choose_run_count_symmetric(
         ))
 
     return best_n, diagnostics
+
+
+def choose_run_count_per_side(
+    d: list[float],
+    constraints: Constraints,
+    side_label: str = "",
+) -> tuple[int, list[Diagnostic]]:
+    """Pick N (run count) for a single side in asymmetric mode.
+
+    Same selection logic as choose_run_count_symmetric but operates on one
+    side's distance list independently. Returns (N, diagnostics); N >= 1 always.
+    """
+    diagnostics: list[Diagnostic] = []
+
+    if constraints.runs_locked is not None:
+        return constraints.runs_locked, diagnostics
+
+    if not d:
+        return 1, [Diagnostic(Severity.ERROR, "NO_STATIONS",
+                              f"No sample stations available ({side_label}).")]
+
+    d_max = max(d)
+    d_min = min(d)
+
+    n_lo = max(1, _ceil_safe(d_max / constraints.w_max))
+    n_hi = max(1, _floor_safe(d_min / constraints.w_min))
+
+    label = f" ({side_label})" if side_label else ""
+
+    feasible = n_lo <= n_hi
+    if not feasible:
+        d_avg = 0.5 * (d_max + d_min)
+        n_pref = max(1, round(d_avg / constraints.w_pref))
+        diagnostics.append(Diagnostic(
+            severity=Severity.WARNING,
+            code="INFEASIBLE_WIDTH_BOUNDS",
+            message=(
+                f"No run count satisfies w in [{constraints.w_min}, {constraints.w_max}] "
+                f"across all stations{label} (d ranges {d_min:.2f}..{d_max:.2f} m). "
+                f"Falling back to N={n_pref}; some runs will violate bounds."
+            ),
+            payload={"n_lo": n_lo, "n_hi": n_hi, "d_max": d_max, "d_min": d_min},
+        ))
+        return n_pref, diagnostics
+
+    best_n = n_lo
+    best_score = float("inf")
+    for n in range(n_lo, n_hi + 1):
+        widths = [d_i / n for d_i in d]
+        score = sum((w - constraints.w_pref) ** 2 for w in widths)
+        if score < best_score:
+            best_score = score
+            best_n = n
+
+    widths_at_n = [d_i / best_n for d_i in d]
+    if max(widths_at_n) - min(widths_at_n) > constraints.w_max - constraints.w_min:
+        diagnostics.append(Diagnostic(
+            severity=Severity.INFO,
+            code="WIDE_TAPER",
+            message=(
+                f"Selected N={best_n}{label}; per-station width ranges "
+                f"{min(widths_at_n):.2f}..{max(widths_at_n):.2f} m."
+            ),
+        ))
+
+    return best_n, diagnostics

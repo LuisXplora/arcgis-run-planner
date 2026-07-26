@@ -36,7 +36,7 @@ def render_plan(plan: RunPlan) -> Figure:
         ax.plot(rx, ry, color=colour, linewidth=0.5)
         cx, cy = run.polygon.centroid.x, run.polygon.centroid.y
         ax.annotate(
-            str(run.ordinal),
+            str(run.ordinal + 1),
             xy=(cx, cy),
             ha="center",
             va="center",

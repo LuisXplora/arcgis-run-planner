@@ -1,0 +1,47 @@
+{
+  "type": "FeatureCollection",
+  "name": "taxiway_tiein_test_case",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:EPSG::7856" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "work_area",
+        "case": "taxiway_tiein",
+        "description": "100 m long rectangle. Control string at y=7, so left side is 14 m wide and right side is 7 m wide — genuinely asymmetric. Represents a tie-in repair band alongside a taxiway edge.",
+        "expected_left_width_m": 14.0,
+        "expected_right_width_m": 7.0,
+        "expected_left_runs": 4,
+        "expected_right_runs": 2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [0.0,   0.0],
+          [100.0, 0.0],
+          [100.0, 21.0],
+          [0.0,   21.0],
+          [0.0,   0.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "role": "control_string",
+        "case": "taxiway_tiein",
+        "description": "Horizontal control string at y=7 (off-centre: 7 m from the bottom edge, 14 m from the top edge)."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [0.0,   7.0],
+          [100.0, 7.0]
+        ]
+      }
+    }
+  ]
+}
