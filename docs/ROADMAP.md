@@ -21,8 +21,8 @@ architecture document. This file is the working tracker.
 - [x] `pyproject.toml`, `.gitignore`, `README.md`
 - [x] ADRs 0001 (engine/agent split), 0002 (Shapely vs ArcPy), 0003 (CRS conventions)
 - [x] Sample data: rectangle, trapezoid
-- [ ] `git init` and first commit
-- [ ] Create the GitHub repo (private at first, public when Phase 1 is green)
+- [x] `git init` and first commit
+- [x] Create the GitHub repo (public — `github.com/LuisXplora/arcgis-run-planner`)
 
 ## Phase 1a — Geometry MVP (symmetric mode) ✅ CURRENT
 
@@ -37,15 +37,16 @@ architecture document. This file is the working tracker.
 
 **Done when:** `pytest` is green on Luigi's Mac.
 
-## Phase 1b — Asymmetric & edge-referenced modes
+## Phase 1b — Asymmetric & edge-referenced modes  ← engine work ✅ (2026-07-26)
 
-- [ ] `engine/modes/asymmetric.py` — independent N per side
-- [ ] `engine/modes/edge.py` — control string is one polygon edge
-- [ ] Sample data: taxiway tie-in (asymmetric), runway shoulder (edge)
-- [ ] Cross-mode test parity
-- [ ] Pro toolbox `execute()` fully wired (ArcPy ↔ Shapely conversion)
+- [x] `engine/modes/asymmetric.py` — independent N per side *(158 lines, implemented)*
+- [x] `engine/modes/edge.py` — control string is one polygon edge *(177 lines, implemented)*
+- [x] Sample data: taxiway tie-in (asymmetric), runway shoulder (edge)
+- [x] Cross-mode test parity *(`test_asymmetric.py` + `test_edge.py`; full suite 44 passed)*
+- [x] Portable PNG renderer (`engine/render.py` + `examples/render_run_plan.py`) — de-risk demo surface *(added ahead of Phase 2)*
+- [ ] Pro toolbox `execute()` fully wired (ArcPy ↔ Shapely conversion) ← **only remaining 1b item**
 
-**Done when:** all three modes plan correctly on their fixture cases.
+**Done when:** all three modes plan correctly on their fixture cases. Engine ✅; Pro toolbox wiring outstanding.
 
 ## Phase 2 — Web app MVP
 
